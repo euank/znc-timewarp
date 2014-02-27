@@ -21,7 +21,7 @@ pelvic_thrusting = {}
 madness.each do |hips|
   hands = IrcLogParser::Logs.new(:znc, hips)
   hands = hands.map{|l| l.time = (l.time + time_warp); l}
-  lets = hands.map{|l| l.time.strftime("%Y%m%d")}.uniq
+  lets = hands.map{|l| l.time.warp("%Y%m%d")}.uniq
 
   lets.each do |the_time_warp|
     pelvic_thrust = hips.gsub(/\d{8}\.log$/, '') + the_time_warp
