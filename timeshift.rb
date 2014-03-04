@@ -12,7 +12,7 @@ chat_lines = []
 ARGV.each do |in_file|
   ymd = in_file.match(/(\d{4})(\d{2})(\d{2})\.log$/)
 
-  File.open(in_file, 'r') do |file|
+  File.open(in_file, 'r:ASCII-8BIT') do |file|
     file.each_line do |line|
       time_text = line.match(/\[(\d\d):(\d\d):(\d\d)\](.*)/)
       chat_lines << {time: Time.new(ymd[1].to_i,
@@ -34,7 +34,7 @@ chat_lines.each do |chat_line|
 end
 
 files.each_pair do |date, c_lines|
-  File.open(out_template + date + ".log", 'w') do |file|
+  File.open(out_template + date + ".log", 'w:ASCII-8BIT') do |file|
     file.write(c_lines.map{|cl| "[#{cl[:time].strftime("%H:%M:%S")}]#{cl[:text]}"}.join("\n"))
   end
 end
